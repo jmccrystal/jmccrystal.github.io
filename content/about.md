@@ -11,7 +11,7 @@ showEdit: false
 
 ## Hi, I'm James McCrystal 👋
 
-I'm a self-taught systems programming specialist based in Los Angeles, CA. My passion lies in building innovative solutions at the intersection of low-level systems programming and modern web technologies. Welcome to my corner of the internet where I document my technical journey, share insights, and explore the depths of computer science.
+I'm a Computer Science major at Loyola Marymount University, entering my sophomore year. As a self-taught systems programming specialist based in Los Angeles, CA, My passion lies in building innovative solutions at the intersection of low-level systems programming and modern web technologies. Welcome to my corner of the internet where I document my technical journey, share insights, and explore the depths of computer science.
 
 ### What I Do
 
@@ -51,7 +51,7 @@ I'm always interested in discussing technology, collaborating on interesting pro
 
 - 🐙 [GitHub](https://github.com/jmccrystal) - Check out my latest projects and contributions
 - 💼 [LinkedIn](https://www.linkedin.com/in/james-mccrystal/) - Connect professionally
-- 📧 Email: james@jmccrystal.dev
+- 📧 Email: jjmccrystal@gmail.com
 
 ---
 

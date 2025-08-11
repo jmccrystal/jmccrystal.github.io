@@ -101,10 +101,9 @@ pagerSize = 10
     name = "James McCrystal"
     image = "https://avatars.githubusercontent.com/u/30939190"
     headline = "Self-taught Systems Programming Specialist"
-    bio = "Passionate about systems programming, Rust development, and building technology that connects people. Based in Los Angeles, CA."
+    bio = "Computer Science major at Loyola Marymount University entering sophomore year. Passionate about systems programming, Rust development, and building technology that connects people. Based in Los Angeles, CA."
     links = [
-      { email = "mailto:james@jmccrystal.dev" },
-      { link = "https://jmccrystal.github.io" },
+      { email = "mailto:jjmccrystal@gmail.com" },
       { github = "https://github.com/jmccrystal" },
       { linkedin = "https://www.linkedin.com/in/james-mccrystal/" },
     ]
