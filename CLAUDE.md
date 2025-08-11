@@ -66,12 +66,6 @@ Goal: effortless posting (Markdown) with a clean, coherent design and minimal ma
 ## Commenting (optional)
 If I ask for comments, integrate **Giscus** using a partial (`layouts/partials/comments.html`) and a toggle `params.comments = true`. Otherwise keep comments off.
 
-## Draft tasks you can run
-- “Init Hugo + PaperMod and set up Actions.”
-- “Create a new post ‘<title>’ with tags [x, y], add hero image, and push.”
-- “Make an About page under `/about` with a professional short bio for James McCrystal.”
-- “Add a ‘Projects’ section listing repos with short blurbs; create cards grid.”
-
 ## Non-goals
 - No databases, no server runtime, no paid SaaS.
 - No external theme frameworks beyond PaperMod.
@@ -84,3 +78,4 @@ If I ask for comments, integrate **Giscus** using a partial (`layouts/partials/c
 ## Success criteria
 - `https://jmccrystal.github.io` builds green on every push.
 - New post = add Markdown + images → push → site updates. Zero yak-shaving.
+- After every task, site should be deployed via GitH-ub Actions.
