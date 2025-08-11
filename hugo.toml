@@ -111,15 +111,15 @@ pagerSize = 10
 # Main menu configuration
 [[menus.main]]
   name = "Posts"
-  url = "/posts/"
+  pageRef = "posts"
   weight = 10
 
 [[menus.main]]
   name = "Projects"
-  url = "/projects/"
+  pageRef = "projects"
   weight = 20
 
 [[menus.main]]
   name = "About"
-  url = "/about/"
+  pageRef = "about"
   weight = 30
