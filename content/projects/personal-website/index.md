@@ -2,14 +2,17 @@
 title: "Personal Website & Blog"
 date: 2025-01-11T12:00:00-00:00
 draft: false
-description: "A modern, fast personal website built with Hugo and the Blowfish theme"
+description:
+  "A modern, fast personal website built with Hugo and the Blowfish theme"
 tags: ["hugo", "web-development", "static-site", "github-pages"]
 categories: ["web"]
 ---
 
 ## Overview
 
-This personal website serves as both a portfolio and blog, showcasing my projects and sharing technical insights. Built with modern web technologies for optimal performance and maintainability.
+This personal website serves as both a portfolio and blog, showcasing my
+projects and sharing technical insights. Built with modern web technologies for
+optimal performance and maintainability.
 
 ## Tech Stack
 
@@ -25,7 +28,8 @@ This personal website serves as both a portfolio and blog, showcasing my project
 - 🌙 **Dark Mode**: Automatic theme switching based on user preference
 - 🔍 **Search**: Built-in search functionality for easy content discovery
 - ⚡ **Fast Loading**: Optimized static site with minimal JavaScript
-- 📊 **SEO Optimized**: Structured data and meta tags for better search visibility
+- 📊 **SEO Optimized**: Structured data and meta tags for better search
+  visibility
 - 🔄 **Auto Deployment**: Push to main branch triggers automatic deployment
 
 ## Architecture
@@ -65,4 +69,5 @@ The site uses GitHub Actions for continuous deployment:
 
 ---
 
-*This project demonstrates modern static site development practices and serves as a template for similar projects.*
+_This project demonstrates modern static site development practices and serves
+as a template for similar projects._

@@ -1,0 +1,27 @@
+{
+  "name": "jmccrystal-github-io",
+  "version": "1.0.0",
+  "description": "James McCrystal's personal website built with Hugo",
+  "scripts": {
+    "lint": "npm run lint:html && npm run lint:css && npm run lint:format",
+    "lint:all": "hugo --gc --minify && npm run lint && npm run validate-html",
+    "lint:html": "htmlhint public/**/*.html",
+    "lint:css": "stylelint 'static/**/*.css' 'assets/**/*.css' || echo 'No custom CSS files found to lint'",
+    "lint:format": "prettier --check 'content/**/*.md' '*.md'",
+    "format": "prettier --write 'content/**/*.md' '*.md'",
+    "validate-html": "html5validator --root public/ --log-level INFO"
+  },
+  "devDependencies": {
+    "htmlhint": "^1.6.3",
+    "stylelint": "^15.11.0",
+    "stylelint-config-standard": "^34.0.0",
+    "prettier": "^3.4.2",
+    "prettier-plugin-toml": "^2.0.6"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jmccrystal/jmccrystal.github.io.git"
+  },
+  "author": "James McCrystal",
+  "license": "MIT"
+}

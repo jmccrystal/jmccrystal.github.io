@@ -2,18 +2,22 @@
 title: "OtherSide: Digital Communication Platform"
 date: 2024-10-15T16:00:00-00:00
 draft: false
-description: "Next.js platform for cross-perspective dialogue using algorithmic user matching"
+description:
+  "Next.js platform for cross-perspective dialogue using algorithmic user
+  matching"
 tags: ["nextjs", "typescript", "algorithms", "web-development", "full-stack"]
 categories: ["web"]
 ---
 
 ## Overview
 
-Full-stack web application built with Next.js that implements algorithmic user matching for structured dialogue between users with different perspectives.
+Full-stack web application built with Next.js that implements algorithmic user
+matching for structured dialogue between users with different perspectives.
 
 ## Technical Stack
 
 ### Frontend Architecture
+
 ```typescript
 // User matching algorithm interface
 interface MatchingEngine {
@@ -30,6 +34,7 @@ class PerspectiveMatchingAlgorithm implements MatchingEngine {
 ```
 
 ### Backend Implementation
+
 - **Next.js API Routes**: RESTful endpoints for user management and matching
 - **TypeScript**: Type-safe development across frontend and backend
 - **Authentication**: JWT-based session management
@@ -38,6 +43,7 @@ class PerspectiveMatchingAlgorithm implements MatchingEngine {
 ### Core Features
 
 #### User Matching Algorithm
+
 ```typescript
 interface UserProfile {
   perspectives: PerspectiveVector;
@@ -47,15 +53,26 @@ interface UserProfile {
 }
 
 function calculateMatchScore(user1: UserProfile, user2: UserProfile): number {
-  const perspectiveDifference = cosineSimilarity(user1.perspectives, user2.perspectives);
-  const styleSimilarity = compareStyles(user1.communicationStyle, user2.communicationStyle);
+  const perspectiveDifference = cosineSimilarity(
+    user1.perspectives,
+    user2.perspectives
+  );
+  const styleSimilarity = compareStyles(
+    user1.communicationStyle,
+    user2.communicationStyle
+  );
   const topicOverlap = jaccaradIndex(user1.topics, user2.topics);
-  
-  return weightedAverage([perspectiveDifference, styleSimilarity, topicOverlap]);
+
+  return weightedAverage([
+    perspectiveDifference,
+    styleSimilarity,
+    topicOverlap,
+  ]);
 }
 ```
 
 #### Real-time Communication
+
 - **WebSocket integration**: Real-time message delivery
 - **Message queuing**: Reliable delivery with Redis
 - **Typing indicators**: Live interaction feedback
@@ -64,6 +81,7 @@ function calculateMatchScore(user1: UserProfile, user2: UserProfile): number {
 ## System Architecture
 
 ### Database Schema
+
 ```sql
 CREATE TABLE users (
   id SERIAL PRIMARY KEY,
@@ -89,6 +107,7 @@ CREATE TABLE messages (
 ```
 
 ### Matching Engine
+
 - **Compatibility scoring**: Multi-dimensional similarity calculation
 - **Queue management**: Asynchronous matching process
 - **Load balancing**: Distributed matching across server instances
@@ -97,20 +116,23 @@ CREATE TABLE messages (
 ## Performance Optimizations
 
 ### Frontend Performance
+
 ```typescript
 // Optimistic updates for better UX
 const sendMessage = useMutation({
   mutationFn: (message: Message) => api.sendMessage(message),
   onMutate: async (newMessage) => {
-    await queryClient.cancelQueries(['messages', conversationId]);
-    queryClient.setQueryData(['messages', conversationId], (old: Message[]) => 
-      [...old, { ...newMessage, status: 'sending' }]
-    );
-  }
+    await queryClient.cancelQueries(["messages", conversationId]);
+    queryClient.setQueryData(["messages", conversationId], (old: Message[]) => [
+      ...old,
+      { ...newMessage, status: "sending" },
+    ]);
+  },
 });
 ```
 
 ### Backend Optimizations
+
 - **Connection pooling**: Efficient database connections
 - **Query optimization**: Indexed database queries for fast matching
 - **Caching**: Redis caching for frequently accessed data
@@ -119,12 +141,14 @@ const sendMessage = useMutation({
 ## Security Implementation
 
 ### Data Protection
+
 - **Input sanitization**: XSS prevention on all user inputs
 - **SQL injection protection**: Parameterized queries via Prisma
 - **CSRF protection**: Token-based request validation
 - **Rate limiting**: Protection against brute force attacks
 
 ### Privacy Features
+
 ```typescript
 interface PrivacySettings {
   anonymousMode: boolean;
@@ -137,12 +161,14 @@ interface PrivacySettings {
 ## Deployment & DevOps
 
 ### Infrastructure
+
 - **Vercel deployment**: Automatic deployment from Git
 - **Database hosting**: Managed PostgreSQL instance
 - **CDN**: Asset optimization and global distribution
 - **Monitoring**: Application performance monitoring
 
 ### CI/CD Pipeline
+
 ```yaml
 # .github/workflows/deploy.yml
 name: Deploy to Production
@@ -161,16 +187,19 @@ jobs:
 ```
 
 ## Analytics & Insights
+
 - **User behavior tracking**: Conversation engagement metrics
-- **A/B testing**: Feature optimization through experimentation  
+- **A/B testing**: Feature optimization through experimentation
 - **Performance monitoring**: Real-time application health
 - **Usage analytics**: Platform adoption and retention metrics
 
 ## Links
+
 - 📁 [Source Code](https://github.com/jmccrystal/OtherSide)
 - ⚛️ [Next.js Documentation](https://nextjs.org/docs)
 - 🔷 [TypeScript Handbook](https://www.typescriptlang.org/docs/)
 
 ---
 
-*Full-stack web application demonstrating algorithmic matching, real-time communication, and scalable architecture.*
+_Full-stack web application demonstrating algorithmic matching, real-time
+communication, and scalable architecture._

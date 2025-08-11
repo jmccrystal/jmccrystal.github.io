@@ -42,6 +42,12 @@ jobs:
         uses: actions/configure-pages@v5
       - name: Install Node.js dependencies
         run: "[[ -f package-lock.json || -f npm-shrinkwrap.json ]] && npm ci || true"
+      - name: Install Python for HTML5 validation
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - name: Install HTML5 validator
+        run: pip install html5validator
       - name: Build with Hugo
         env:
           HUGO_CACHEDIR: ${{ runner.temp }}/hugo_cache
@@ -51,7 +57,21 @@ jobs:
           hugo \
             --gc \
             --minify \
-            --baseURL "${{ steps.pages.outputs.base_url }}/"          
+            --baseURL "${{ steps.pages.outputs.base_url }}/"
+      - name: Run linting checks
+        run: |
+          # Install npm dependencies if package.json exists
+          if [ -f "package.json" ]; then
+            npm install
+            echo "Running HTML linting..."
+            npm run lint:html
+            echo "Running CSS linting..."
+            npm run lint:css || true
+            echo "Running format checking..."
+            npm run lint:format || true
+          fi
+      - name: Validate HTML5
+        run: html5validator --root public/ --log-level INFO          
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
