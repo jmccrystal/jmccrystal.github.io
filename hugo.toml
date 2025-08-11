@@ -99,7 +99,7 @@ pagerSize = 10
   # Author
   [params.author]
     name = "James McCrystal"
-    image = "headshot.png"
+    image = "https://avatars.githubusercontent.com/u/30939190"
     headline = "Self-taught Systems Programming Specialist"
     bio = "Computer Science major at Loyola Marymount University entering sophomore year. Passionate about systems programming, Rust development, and building technology that connects people. Based in Los Angeles, CA."
     links = [
