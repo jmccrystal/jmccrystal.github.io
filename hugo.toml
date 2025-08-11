@@ -1,0 +1,36 @@
+baseURL = 'https://jmccrystal.github.io/'
+languageCode = 'en-us'
+title = 'James McCrystal'
+theme = 'PaperMod'
+[pagination]
+pagerSize = 10
+
+[params]
+ShowReadingTime = true
+ShowBreadCrumbs = true
+ShowPostNavLinks = true
+ShowCodeCopyButtons = true
+defaultTheme = "auto"
+
+[markup.highlight]
+noClasses = false
+
+[[menu.main]]
+name = "Home"
+url = "/"
+weight = 10
+
+[[menu.main]]
+name = "Posts"
+url = "/posts/"
+weight = 20
+
+[[menu.main]]
+name = "Projects"
+url = "/projects/"
+weight = 30
+
+[[menu.main]]
+name = "About"
+url = "/about/"
+weight = 40
