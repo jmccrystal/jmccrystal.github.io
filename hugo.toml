@@ -1,36 +1,126 @@
 baseURL = 'https://jmccrystal.github.io/'
 languageCode = 'en-us'
 title = 'James McCrystal'
-theme = 'PaperMod'
+theme = 'blowfish'
+
+# Enable emoji support
+enableEmoji = true
+
+# Build settings
+[build]
+  writeStats = true
+
 [pagination]
 pagerSize = 10
 
+[languages]
+  [languages.en]
+    languageCode = "en"
+    languageName = "English"
+    displayName = "EN"
+    isoCode = "en"
+    weight = 1
+    rtl = false
+    dateFormat = "2 January 2006"
+    title = "James McCrystal"
+    description = "Self-taught systems programming specialist from Los Angeles. Rust, Python, TypeScript developer focused on building innovative solutions at the intersection of low-level systems and modern web technologies."
+    
+    [languages.en.params]
+      displayName = "EN"
+      isoCode = "en"
+      rtl = false
+      dateFormat = "2 January 2006"
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+  [markup.highlight]
+    noClasses = false
+    lineNos = true
+    lineNumbersInTable = false
+    style = "github"
+
 [params]
-ShowReadingTime = true
-ShowBreadCrumbs = true
-ShowPostNavLinks = true
-ShowCodeCopyButtons = true
-defaultTheme = "auto"
+  # Basic params
+  colorScheme = "blowfish"
+  defaultAppearance = "light" # valid options: light or dark
+  autoSwitchAppearance = true
 
-[markup.highlight]
-noClasses = false
+  # Navigation
+  enableSearch = true
+  enableCodeCopy = true
+  
+  # Article settings
+  showDate = true
+  showViews = false
+  showLikes = false
+  showDateUpdated = false
+  showAuthor = true
+  showHero = true
+  heroStyle = "basic" # valid options: basic, big, background, thumbAndBackground
+  showBreadcrumbs = true
+  showDraftLabel = true
+  showEdit = false
+  editURL = "https://github.com/jmccrystal/jmccrystal.github.io/tree/main/content"
+  editAppendPath = true
+  seriesOpened = false
+  showHeadingAnchors = true
+  showPagination = true
+  invertPagination = false
+  showReadingTime = true
+  showTableOfContents = true
+  showTaxonomies = true
+  showAuthorsBadges = false
+  showWordCount = true
+  showSummary = true
+  sharingLinks = [ "linkedin", "twitter", "reddit", "pinterest", "facebook", "email"]
 
-[[menu.main]]
-name = "Home"
-url = "/"
-weight = 10
+  # Homepage
+  homepage.layout = "profile" # valid options: page, profile, hero, card, background, custom
+  homepage.homepageImage = "" # used in: hero, and card
+  homepage.showRecent = true
+  homepage.showRecentItems = 5
+  homepage.showMoreLink = true
+  homepage.showMoreLinkDest = "/posts"
+  homepage.cardView = false
+  homepage.cardViewScreenWidth = false
 
-[[menu.main]]
-name = "Posts"
-url = "/posts/"
-weight = 20
+  # Header
+  header.layout = "basic" # valid options: basic, fixed, fixed-fill, fixed-fill-blur
 
-[[menu.main]]
-name = "Projects"
-url = "/projects/"
-weight = 30
+  # Footer
+  footer.showMenu = true
+  footer.showCopyright = true
+  footer.showThemeAttribution = true
+  footer.showAppearanceSwitcher = true
+  footer.showScrollToTop = true
 
-[[menu.main]]
-name = "About"
-url = "/about/"
-weight = 40
+  # Author
+  [params.author]
+    name = "James McCrystal"
+    image = "https://avatars.githubusercontent.com/u/30939190"
+    headline = "Self-taught Systems Programming Specialist"
+    bio = "Passionate about systems programming, Rust development, and building technology that connects people. Based in Los Angeles, CA."
+    links = [
+      { email = "mailto:james@jmccrystal.dev" },
+      { link = "https://jmccrystal.github.io" },
+      { github = "https://github.com/jmccrystal" },
+      { linkedin = "https://www.linkedin.com/in/james-mccrystal/" },
+    ]
+
+# Main menu configuration
+[[menus.main]]
+  name = "Posts"
+  pageRef = "/posts"
+  weight = 10
+
+[[menus.main]]
+  name = "Projects"
+  pageRef = "/projects"
+  weight = 20
+
+[[menus.main]]
+  name = "About"
+  pageRef = "/about"
+  weight = 30

@@ -17,6 +17,7 @@ Goal: effortless posting (Markdown) with a clean, coherent design and minimal ma
 - Don’t introduce paid services or external build systems. No server-side code.
 - Keep Pages-compatible links (relative URLs; respect `baseURL`).
 - When modifying config, explain why in the PR/commit message.
+- Do not include any trace of Claude in the repo. Act as if you are James McCrystal.
 
 ## Repo layout (desired)
     /

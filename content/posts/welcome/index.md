@@ -9,7 +9,7 @@ categories: ["general"]
 
 # Welcome to My Site!
 
-This is James McCrystal's personal website, built with [Hugo](https://gohugo.io) and the [PaperMod](https://github.com/adityatelange/hugo-PaperMod) theme.
+This is James McCrystal's personal website, built with [Hugo](https://gohugo.io) and the [Blowfish](https://themes.gohugo.io/themes/blowfish/) theme.
 
 ## What You'll Find Here
 
