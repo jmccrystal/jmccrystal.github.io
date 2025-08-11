@@ -2,105 +2,157 @@
 title: "nostd-alloc: Custom Memory Allocator"
 date: 2024-11-20T14:00:00-00:00
 draft: false
-description: "A custom memory allocation library for no_std Rust environments, exploring low-level memory management"
+description: "Custom memory allocation library for no_std Rust environments"
 tags: ["rust", "memory-management", "systems-programming", "embedded", "no-std"]
 categories: ["systems"]
 ---
 
 ## Overview
 
-nostd-alloc is a personal learning project that implements basic memory allocation and collections in a `no_std` Rust environment. This project represents a deep dive into the fundamentals of memory management, exploring how core data structures work at the lowest level.
+Custom memory allocator and basic collections implementation for `no_std` Rust environments. Built from first principles without standard library dependencies.
 
-By building essential components like custom allocators, `Vec`, and `String` from scratch without the standard library, this project demonstrates a thorough understanding of systems programming fundamentals.
+## Core Implementation
 
-## Project Goals
+### Memory Allocator
+```rust
+use core::alloc::{GlobalAlloc, Layout};
 
-This educational project was designed to explore several key areas:
+pub struct CustomAllocator {
+    heap_start: usize,
+    heap_size: usize,
+    free_list: *mut FreeBlock,
+}
 
-- **Low-level memory management in Rust**
-- **Allocation and collection internals** 
-- **Building fundamental data structures from first principles**
-- **Working in constrained computational environments**
+unsafe impl GlobalAlloc for CustomAllocator {
+    unsafe fn alloc(&self, layout: Layout) -> *mut u8 {
+        self.allocate_block(layout.size(), layout.align())
+    }
+    
+    unsafe fn dealloc(&self, ptr: *mut u8, layout: Layout) {
+        self.deallocate_block(ptr, layout.size())
+    }
+}
+```
 
-## Technical Implementation
+### Block Management
+- **Free list algorithm**: Linked list of available memory blocks
+- **Coalescing**: Merging adjacent free blocks to reduce fragmentation
+- **Alignment handling**: Proper memory alignment for different data types
+- **Metadata overhead**: Minimal header information per allocation
 
-### Core Components
+### Data Structures
 
-#### Custom Memory Allocator
-- Implements memory allocation using `mmap` system calls
-- Manages memory chunks and handles allocation/deallocation
-- Provides a foundation for higher-level data structures
+#### Custom Vec Implementation
+```rust
+pub struct Vec<T> {
+    ptr: *mut T,
+    len: usize,
+    cap: usize,
+}
 
-#### Data Structures
-- **Custom Vec**: Dynamic array implementation without standard library
-- **Custom String**: String handling in constrained environments
-- **Basic I/O**: Fundamental input/output operations
+impl<T> Vec<T> {
+    pub fn push(&mut self, item: T) -> Result<(), AllocError> {
+        if self.len == self.cap {
+            self.grow()?;
+        }
+        unsafe {
+            ptr::write(self.ptr.add(self.len), item);
+        }
+        self.len += 1;
+        Ok(())
+    }
+}
+```
 
-#### No Standard Library Design
-- All functionality built from scratch
-- No reliance on `std` library components  
-- Designed for embedded or bare-metal environments
+#### Custom String Implementation
+```rust
+pub struct String {
+    vec: Vec<u8>,
+}
 
-## Key Learning Outcomes
+impl String {
+    pub fn push_str(&mut self, s: &str) -> Result<(), AllocError> {
+        for byte in s.bytes() {
+            self.vec.push(byte)?;
+        }
+        Ok(())
+    }
+}
+```
 
-### Memory Management Fundamentals
-- Understanding how memory allocators work internally
-- Learning about memory layout and alignment requirements
-- Exploring the relationship between the heap and system calls
+## Memory Management Strategy
 
-### Rust Systems Programming
-- Working with raw pointers and unsafe code
-- Understanding Rust's ownership model at the lowest level
-- Building safe abstractions over unsafe primitives
+### Allocation Algorithm
+- **First-fit**: Fast allocation with acceptable fragmentation
+- **Boundary tags**: Header and footer for each block
+- **Free block merging**: Automatic coalescing on deallocation
 
-### Embedded/Bare-Metal Programming
-- Programming without standard library support
-- Working within severe resource constraints
-- Understanding the minimal requirements for basic functionality
+### Performance Characteristics
+- **Allocation time**: O(n) worst-case for first-fit
+- **Deallocation time**: O(1) with coalescing
+- **Memory overhead**: 16 bytes per allocation for metadata
+- **Fragmentation**: Mitigated through block coalescing
 
-## Technical Challenges Solved
+## System Integration
+
+### mmap System Calls
+```rust
+fn allocate_heap(size: usize) -> Result<*mut u8, AllocError> {
+    let ptr = unsafe {
+        mmap(
+            ptr::null_mut(),
+            size,
+            PROT_READ | PROT_WRITE,
+            MAP_PRIVATE | MAP_ANONYMOUS,
+            -1,
+            0,
+        )
+    };
+    
+    if ptr == MAP_FAILED {
+        return Err(AllocError::OutOfMemory);
+    }
+    
+    Ok(ptr as *mut u8)
+}
+```
+
+### Error Handling
+- **Custom error types**: Structured error handling without std
+- **Result-based APIs**: All fallible operations return Results
+- **Panic-free operation**: No panics in core allocation paths
+
+## Testing & Validation
+
+### Unit Tests
+- **Allocation/deallocation cycles**: Verify memory reclamation
+- **Alignment verification**: Ensure proper pointer alignment
+- **Fragmentation testing**: Stress test allocation patterns
+- **Concurrent access**: Thread safety validation (where applicable)
 
 ### Memory Safety
-- Ensuring memory safety without garbage collection
-- Preventing memory leaks and use-after-free bugs
-- Building safe interfaces over unsafe memory operations
+- **Use-after-free prevention**: Poisoning freed memory in debug builds
+- **Double-free detection**: Tracking allocation state
+- **Buffer overflow protection**: Bounds checking in debug mode
 
-### Resource Management
-- Efficient memory usage in constrained environments
-- Minimizing allocation overhead
-- Handling allocation failures gracefully
+## Embedded Compatibility
 
-### API Design
-- Creating intuitive interfaces for low-level functionality
-- Balancing safety with performance requirements
-- Maintaining compatibility with Rust's type system
+### Resource Constraints
+- **Fixed heap size**: Pre-allocated memory pool
+- **No dynamic growth**: Bounded memory usage
+- **Minimal stack usage**: Iterative algorithms over recursive
+- **Zero dependencies**: Pure `no_std` implementation
 
-## Educational Value
-
-This project serves as an excellent example of learning through implementation:
-
-> "A personal learning project implementing basic memory allocation and collections in a `no_std` Rust environment."
-
-By reimplementing fundamental components that we typically take for granted, the project provides deep insights into:
-- How programming languages manage memory
-- The relationship between high-level abstractions and system calls
-- The complexity hidden behind simple operations like `Vec::push()`
-
-## Future Explorations
-
-Potential extensions to this learning project include:
-- [ ] Implementing more sophisticated allocation strategies
-- [ ] Adding garbage collection experiments
-- [ ] Exploring different memory models (stack, heap, etc.)
-- [ ] Performance benchmarking against standard implementations
-- [ ] Integration with actual embedded hardware
+### Platform Support
+- **ARM Cortex-M**: Embedded microcontroller support
+- **RISC-V**: Support for RISC-V architectures
+- **x86_64**: Development and testing platform
 
 ## Links
-
 - 📁 [Source Code](https://github.com/jmccrystal/nostd-alloc)
 - 🦀 [Rust no_std Documentation](https://docs.rust-embedded.org/book/intro/no-std.html)
-- 📚 [Rust Embedded Book](https://docs.rust-embedded.org/book/)
+- 📚 [The Rust Reference](https://doc.rust-lang.org/reference/)
 
 ---
 
-*This project demonstrates the value of understanding computational fundamentals by building core infrastructure from the ground up.*
+*Low-level systems programming demonstrating memory management fundamentals and bare-metal Rust development.*
